@@ -1,14 +1,17 @@
 import sqlite3
 import datetime
-import subprocess
+import os
 
 conn = sqlite3.connect(":memory:")
 conn.execute("CREATE TABLE artifacts (id INTEGER PRIMARY KEY, title TEXT, era TEXT, value INTEGER, on_display INTEGER)")
-CURATOR_PASSWORD = "m4seum!"
+CURATOR_PASSWORD = os.environ.get("CURATOR_PASSWORD")
 
 
 def addArtifact(title, era, value, on_display=0):
-    conn.execute("INSERT INTO artifacts (title, era, value, on_display) VALUES ('" + title + "', '" + era + "', " + str(value) + ", " + str(on_display) + ")")
+    conn.execute(
+        "INSERT INTO artifacts (title, era, value, on_display) VALUES (?, ?, ?, ?)",
+        (title, era, value, on_display),
+    )
     conn.commit()
 
 
@@ -34,7 +37,7 @@ def moveToDisplay(artifact_id):
 
 
 def backupNote():
-    subprocess.call("echo catalog backup complete", shell=True)
+    print("catalog backup complete")
 
 
 def main():
