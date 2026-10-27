@@ -1,0 +1,6 @@
+************* Module museum_catalog
+museum_catalog.py:72:0: C0304: Final newline missing (missing-final-newline)
+
+------------------------------------------------------------------
+Your code has been rated at 9.70/10 (previous run: 9.70/10, +0.00)
+
